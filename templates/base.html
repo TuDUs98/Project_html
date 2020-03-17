@@ -4,19 +4,25 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="stylesheet" href="static/css/styles_1.css">
+    <link rel="stylesheet"
+          href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+          integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
+          crossorigin="anonymous">
+    <title>Как Так!?</title>
 </head>
 <body>
     <header>
-      <h1>Как Так!?</h1>
+      <h1>КакТак!?</h1>
       <nav>
           <ul>
               <li><a href="/index">На главную</a></li>
-              <li><a href="/">Ещё куда-нибудь</a></li>
+              <li><a href="/login">Ещё куда-нибудь</a></li>
           </ul>
       </nav>
     </header>
     <main>
-        <div></div>
+        {% block login %}{% endblock %}
+        {% block content %}{% endblock %}
     </main>
     <footer>
       Подвал сайта
