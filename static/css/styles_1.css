@@ -1,34 +1,38 @@
 body {
-  padding: 0 30px;
+  margin: 0;
 
-  background-image: url("bambuk.jpg");
+  background-image: url("fon.jpg");
 
   font-size: 14px;
   line-height: 22px;
   font-family: "Georgia", serif;
   color: #222222;
 }
+
 nav {
   padding: 15px;
-
-  height: 100px;
+  font-style: oblique;
+  height: 15%;
   font-size: 20px;
   color: #ffffff;
-  background-color: #00ff32;
+  background-image: url("fon2.jpg");
+}
+
+form{
+  padding: 0 30px;
+
 }
 
 h1{
   text-align: center;
-  color: #ffffff;
+  color: #000000;
   font-size: 50px;
 }
 
-form.login_form {
-    margin-left: auto;
-    margin-right: auto;
-    max-width: 450px;
-    background-color: #ffffff;
-    border: 1px solid gray;
-    border-radius: 5px;
-    padding: 10px;
+A:visited {
+  color: white;
 }
+
+
+
+
