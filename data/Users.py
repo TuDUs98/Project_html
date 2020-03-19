@@ -20,3 +20,6 @@ class User(SqlAlchemyBase, UserMixin):
 
     def __repr__(self):
         return f"<User> {self.id} {self.name} {self.email} {self.created_date}"
+
+    def check_password(self, password):
+        return self.password == password

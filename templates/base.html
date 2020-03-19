@@ -14,7 +14,7 @@
         {% if current_user.is_authenticated %}
         <ul>
             <li><a href="/index">На главную</a></li>
-            <li><a href="/logout">{{ current_user.name }}</a></li>
+            <li><a href="/logout">Выйти</a></li>
         </ul>
         {% else %}
         <ul>
@@ -28,6 +28,8 @@
 <main>
     {% block login %}{% endblock %}
     {% block content %}{% endblock %}
+    {% block register %}{% endblock %}
+    {% block submit_email %}{% endblock %}
 </main>
 <footer>
 

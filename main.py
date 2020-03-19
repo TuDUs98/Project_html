@@ -3,6 +3,11 @@ from data.db_functions import *
 from data.Users import User
 
 from flask_login.login_manager import LoginManager
+from flask_login import login_user
+from flask_login import logout_user
+from flask_login import login_required
+
+from data.send_email import *
 
 from flask import Flask
 from flask import render_template
@@ -11,13 +16,15 @@ from wtforms import StringField, PasswordField, BooleanField, SubmitField
 from wtforms.validators import DataRequired
 from flask import redirect
 
+from data import config
+
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'yandexlyceum_secret_key'
 
 login_manager = LoginManager()
 login_manager.init_app(app)
 
-db_session.global_init("db.sqlite")
+db_session.global_init("db/db.sqlite")
 
 
 @login_manager.user_loader
@@ -33,6 +40,13 @@ class LoginForm(FlaskForm):
     submit = SubmitField('Войти')
 
 
+class RegisterForm(FlaskForm):
+    name = StringField('Имя', validators=[DataRequired()])
+    email = StringField('Почта', validators=[DataRequired()])
+    password = PasswordField('Пароль', validators=[DataRequired()])
+    submit = SubmitField('Зарегистрироваться')
+
+
 @app.route('/')
 @app.route('/index')
 def index():
@@ -46,10 +60,49 @@ def login():
         session = db_session.create_session()
         user = session.query(User).filter(User.email == form.email.data).first()
         if user and user.check_password(form.password.data):
-            form.login_user(user, remember=form.remember_me.data)
+            login_user(user, remember=form.remember_me.data)
             return redirect("/")
         return render_template('login.html', message="Неправильный логин или пароль", form=form)
     return render_template('login.html', title='Авторизация', form=form)
+
+
+@app.route('/logout')
+@login_required
+def logout():
+    logout_user()
+    return redirect("/")
+
+
+@app.route('/register', methods=['GET', 'POST'])
+def register():
+    form = RegisterForm()
+    if form.validate_on_submit():
+        session = db_session.create_session()
+        if session.query(User).filter(User.email == form.email.data).first() is not None:
+            return render_template('register.html', message="Такой email уже зарегестрирован.", form=form)
+        elif session.query(User).filter(User.name == form.name.data).first() is not None:
+            return render_template('register.html', message="Такое имя пользователя уже используется",
+                                   form=form)
+        send_email(form.email.data)
+        config.NEEDED_CODE = get_code()
+        config.USER_LIST = {'name': form.name.data, 'email': form.email.data, 'password': form.password.data}
+        return render_template('submit_email.html', flag="wait")
+    return render_template('register.html', title='Регистрация', form=form)
+
+
+@app.route('/submit_email/<code>')
+def submit(code):
+    if code == config.NEEDED_CODE:
+        session = db_session.create_session()
+        add_user(config.USER_LIST['name'],
+                 config.USER_LIST['email'],
+                 config.USER_LIST['password'])
+        session.commit()
+        return render_template('submit_email.html', flag="code")
+    if code is None:
+        return render_template('submit_email.html')
+    else:
+        return render_template('submit_email.html', flag="error")
 
 
 if __name__ == '__main__':
