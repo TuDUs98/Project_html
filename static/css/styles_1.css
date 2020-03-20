@@ -33,6 +33,17 @@ A:visited {
   color: white;
 }
 
+.for_div{
+  padding: 50px 0;
+  text-align: center;
+  font-size: 20px;
+}
+
+.error{
+  font-size: 15px;
+  color: red;
+}
+
 
 
 
