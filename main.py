@@ -24,7 +24,7 @@ app.config['SECRET_KEY'] = 'yandexlyceum_secret_key'
 login_manager = LoginManager()
 login_manager.init_app(app)
 
-db_session.global_init("db/db.sqlite")
+db_session.global_init("db.sqlite")
 
 
 @login_manager.user_loader
