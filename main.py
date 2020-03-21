@@ -17,6 +17,7 @@ from wtforms.validators import DataRequired
 from flask import redirect
 
 from data import config
+import os
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'yandexlyceum_secret_key'
@@ -50,7 +51,7 @@ class RegisterForm(FlaskForm):
 @app.route('/')
 @app.route('/index')
 def index():
-    return render_template("index.html")
+    return render_template("штвуч.html")
 
 
 @app.route('/login', methods=['GET', 'POST'])
@@ -106,4 +107,5 @@ def submit(code):
 
 
 if __name__ == '__main__':
-    app.run(port=8080, host='127.0.0.1')
+    port = int(os.environ.get("PORT", 5000))
+    app.run(host="0.0.0.0", port=port)
