@@ -1,4 +1,3 @@
-#123
 from data.db_functions import *
 
 from data.Users import User
@@ -52,7 +51,7 @@ class RegisterForm(FlaskForm):
 @app.route('/')
 @app.route('/index')
 def index():
-    return render_template("штвуч.html")
+    return render_template("index.html")
 
 
 @app.route('/login', methods=['GET', 'POST'])
