@@ -29,7 +29,11 @@ h1{
   font-size: 50px;
 }
 
-A:visited {
+a:visited {
+  color: white;
+}
+
+a:link{
   color: white;
 }
 
