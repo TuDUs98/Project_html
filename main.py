@@ -1,4 +1,3 @@
-#hello world!
 from data.db_functions import *
 
 from data.Users import User
