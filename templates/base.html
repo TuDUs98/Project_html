@@ -13,7 +13,9 @@
 </head>
 <body>
 <header>
-    <script data-ad-client="ca-pub-2177523498934602" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    <script data-ad-client="ca-pub-2177523498934602" 
+        async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js">
+    </script>
     <h1>КакТак!?</h1>
     <nav>
         {% if current_user.is_authenticated %}
@@ -32,12 +34,12 @@
 </header>
 <main>
     {% block login %}{% endblock %}
-    {% block content %}{% endblock %}
+    {% block index %}{% endblock %}
     {% block register %}{% endblock %}
     {% block submit_email %}{% endblock %}
 </main>
 <footer>
-
+    footer
 </footer>
 </body>
 </html>
