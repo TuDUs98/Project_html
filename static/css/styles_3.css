@@ -10,9 +10,9 @@ header{
 }
 
 main{
-	margin-right: : 1%;
+	margin-right: 1%;
 	background-color: black;
-	float: center;
+	float: left;
 	min-height: 500px;
 	width: 70%
 }
