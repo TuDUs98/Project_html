@@ -18,6 +18,7 @@
 <div class="sidebar_nav">
     <nav>
         {% if current_user.is_authenticated %}
+        <h3>{{current_user.name}}</h3>
         <ul>
             <li><a href="/index">На главную</a></li>
             <li><a href="/profile">Профиль</a></li>
