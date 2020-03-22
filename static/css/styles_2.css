@@ -41,6 +41,7 @@ a:visited{
 }
 
 .sidebar_nav{
+	padding: 5% 5%;
 	margin-right: 1%; 
 	width: 14%;
 	min-height: 1010px;
