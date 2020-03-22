@@ -3,7 +3,12 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <link rel="stylesheet" href="static/css/styles_3.css">
+    <link rel="stylesheet"
+          href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+          integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
+          crossorigin="anonymous">
+    <link rel="stylesheet" href="static/css/styles_1.css">
+    <link rel="stylesheet" href="static/css/styles_2.css">
     <title>Как Так!?</title>
 </head>
 <body>
@@ -15,6 +20,7 @@
         {% if current_user.is_authenticated %}
         <ul>
             <li><a href="/index">На главную</a></li>
+            <li><a href="/profile">Профиль</a></li>
             <li><a href="/logout">Выйти</a></li>
         </ul>
         {% else %}
