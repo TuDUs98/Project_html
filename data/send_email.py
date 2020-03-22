@@ -29,10 +29,10 @@ def send_email(address_to):
     <html>
       <head></head>
       <body>
-        <div class="font-size: 30px">
+        <div style="text-align: center; font-size: 30px">
             Спасибо за регистрацию в проекте КакТак!
         </div>
-        <div class="font-size: 30px">
+        <div style="text-align: center; font-size: 30px">
             Чтобы подтвердить регистрацию перейдите по ссылке нижже:
         </div>
         <a href="http://kaktak.herokuapp.com/submit_email/{code}">Ссылка</a>
