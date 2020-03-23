@@ -1,2 +1,2 @@
-from . import Users
-from . import News
+from data import Users
+from data import Facts

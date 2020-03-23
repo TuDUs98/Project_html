@@ -4,7 +4,7 @@ from sqlalchemy import orm
 
 from flask_login import UserMixin
 
-from .db_session import SqlAlchemyBase
+from data.db_session import SqlAlchemyBase
 
 
 class User(SqlAlchemyBase, UserMixin):
@@ -16,7 +16,7 @@ class User(SqlAlchemyBase, UserMixin):
     password = sqlalchemy.Column(sqlalchemy.String, nullable=False)
     created_date = sqlalchemy.Column(sqlalchemy.DateTime, default=datetime.datetime.now)
 
-    news = orm.relation("News", back_populates='user')
+    news = orm.relation("Facts", back_populates='user')
 
     def __repr__(self):
         return f"<User> {self.id} {self.name} {self.email} {self.created_date}"

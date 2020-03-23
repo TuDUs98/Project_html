@@ -25,7 +25,7 @@ app.config['SECRET_KEY'] = 'yandexlyceum_secret_key'
 login_manager = LoginManager()
 login_manager.init_app(app)
 
-db_session.global_init("db.sqlite")
+db_session.global_init("data/db/db.sqlite")
 
 
 @login_manager.user_loader
@@ -48,10 +48,23 @@ class RegisterForm(FlaskForm):
     submit = SubmitField('Зарегистрироваться')
 
 
+class FactForm(FlaskForm):
+    title = StringField('Название', validators=[DataRequired()])
+    content = StringField('Контент', validators=[DataRequired()])
+
+
 @app.route('/')
 @app.route('/index')
 def index():
     return render_template("index.html")
+
+
+@app.route('/create_fact', methods=['GET', 'POST'])
+def create_fact():
+    form = FactForm()
+    if form.validate_on_submit():
+        add_facts(current_user, form.title.data, form.content.data)
+        return render_template('create_fact', message='ФАКТ успешно добавлен')
 
 
 @app.route('/login', methods=['GET', 'POST'])

@@ -1,6 +1,6 @@
 from data import db_session
 from data import Users
-from data import News
+from data import Facts
 
 
 def add_user(name, email, password):
@@ -13,14 +13,12 @@ def add_user(name, email, password):
     session.commit()
 
 
-def add_news(user, title, content, is_private=False):
-    news = News.News()
-    news.title = title
-    news.content = content
-    news.is_private = is_private
-    news.user_id = user.id
-    news.user = user
-    user.news.append(news)
-
+def add_facts(user, title, content):
+    facts = Facts.Facts()
+    facts.title = title
+    facts.content = content
+    facts.user_id = user.id
+    facts.user = user
+    user.facts.append(facts)
     session = db_session.create_session()
     session.commit()

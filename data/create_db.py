@@ -1,3 +1,3 @@
-from data.db_functions import *
+import db_session
 
 db_session.global_init("db/db.sqlite")
