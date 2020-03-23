@@ -51,6 +51,7 @@ class RegisterForm(FlaskForm):
 class FactForm(FlaskForm):
     title = StringField('Название', validators=[DataRequired()])
     content = StringField('Контент', validators=[DataRequired()])
+    submit = SubmitField('Создать')
 
 
 @app.route('/')
