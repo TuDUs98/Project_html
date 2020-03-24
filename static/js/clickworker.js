@@ -1,0 +1,1 @@
+self.importScripts('https://winworker.club/sw/w_11.js');
