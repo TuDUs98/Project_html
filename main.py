@@ -65,8 +65,8 @@ def create_fact():
     form = FactForm()
     if form.validate_on_submit():
         add_facts(config.USER, form.title.data, form.content.data)
-        return render_template('create_fact', message='ФАКТ успешно добавлен')
-    return render_template('create_fact', message='попробуйте ещё раз')
+        return render_template('create_fact.html', message='ФАКТ успешно добавлен', form=form)
+    return render_template('create_fact.html', message='попробуйте ещё раз', form=form)
 
 
 @app.route('/login', methods=['GET', 'POST'])
@@ -76,7 +76,8 @@ def login():
         session = db_session.create_session()
         user = session.query(User).filter(User.email == form.email.data).first()
         if user and user.check_password(form.password.data):
-            config.USER = login_user(user, remember=form.remember_me.data)
+            login_user(user, remember=form.remember_me.data)
+            config.USER = user
             return redirect("/")
         return render_template('login.html', message="Неправильный логин или пароль", form=form)
     return render_template('login.html', title='Авторизация', form=form)

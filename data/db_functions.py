@@ -19,6 +19,6 @@ def add_facts(user, title, content):
     facts.content = content
     facts.user_id = user.id
     facts.user = user
-    user.facts.append(facts)
     session = db_session.create_session()
+    session.add(facts)
     session.commit()

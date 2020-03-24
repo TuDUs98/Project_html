@@ -7,7 +7,7 @@
         <p>
             {{ form.title.label }}<br>
             {{ form.title(class="form-control", type="text") }}<br>
-            {% for error in form.email.errors %}
+            {% for error in form.title.errors %}
                 <div class="alert alert-danger" role="alert">
                     {{ error }}
                 </div>
@@ -16,7 +16,7 @@
         <p>
             {{ form.content.label }}<br>
             {{ form.content(class="form-control", type="text") }}<br>
-            {% for error in form.password.errors %}
+            {% for error in form.content.errors %}
                 <div class="alert alert-danger" role="alert">
                     {{ error }}
                 </div>
