@@ -1,3 +1,5 @@
 NEEDED_CODE = None
 
 USER_LIST = None
+
+USER = None

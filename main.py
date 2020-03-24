@@ -64,8 +64,9 @@ def index():
 def create_fact():
     form = FactForm()
     if form.validate_on_submit():
-        add_facts(current_user, form.title.data, form.content.data)
+        add_facts(config.USER, form.title.data, form.content.data)
         return render_template('create_fact', message='ФАКТ успешно добавлен')
+    return render_template('create_fact', message='попробуйте ещё раз')
 
 
 @app.route('/login', methods=['GET', 'POST'])
@@ -75,7 +76,7 @@ def login():
         session = db_session.create_session()
         user = session.query(User).filter(User.email == form.email.data).first()
         if user and user.check_password(form.password.data):
-            login_user(user, remember=form.remember_me.data)
+            config.USER = login_user(user, remember=form.remember_me.data)
             return redirect("/")
         return render_template('login.html', message="Неправильный логин или пароль", form=form)
     return render_template('login.html', title='Авторизация', form=form)
@@ -94,7 +95,7 @@ def register():
     if form.validate_on_submit():
         session = db_session.create_session()
         if session.query(User).filter(User.email == form.email.data).first() is not None:
-            return render_template('register.html', message="Такой email уже зарегестрирован.", form=form)
+            return render_template('register.html', message="Такой email уже зарегистрирован", form=form)
         elif session.query(User).filter(User.name == form.name.data).first() is not None:
             return render_template('register.html', message="Такое имя пользователя уже используется",
                                    form=form)
@@ -106,16 +107,17 @@ def register():
 
 
 @app.route('/submit_email/<code>')
-def submit(code):
+def submit_email(code):
     if code == config.NEEDED_CODE:
         session = db_session.create_session()
         add_user(config.USER_LIST['name'],
                  config.USER_LIST['email'],
                  config.USER_LIST['password'])
+        config.USER_LIST = {}
         session.commit()
         return render_template('submit_email.html', flag="code")
-    if code is None:
-        return render_template('submit_email.html')
+    elif code is None:
+        return render_template('submit_email.html', flag="wait")
     else:
         return render_template('submit_email.html', flag="error")
 

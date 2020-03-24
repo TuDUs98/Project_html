@@ -16,10 +16,10 @@ class User(SqlAlchemyBase, UserMixin):
     password = sqlalchemy.Column(sqlalchemy.String, nullable=False)
     created_date = sqlalchemy.Column(sqlalchemy.DateTime, default=datetime.datetime.now)
 
-    news = orm.relation("Facts", back_populates='user')
+    facts = orm.relation("Facts", back_populates='user')
 
     def __repr__(self):
-        return f"<User> {self.id} {self.name} {self.email} {self.created_date}"
+        return f"<User> {self.id} {self.name} {self.email} {self.password} {self.created_date}"
 
     def check_password(self, password):
         return self.password == password

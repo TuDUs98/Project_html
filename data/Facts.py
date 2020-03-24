@@ -2,10 +2,11 @@ import datetime
 import sqlalchemy
 from sqlalchemy import orm
 
+
 from data.db_session import SqlAlchemyBase
 
 
-class News(SqlAlchemyBase):
+class Facts(SqlAlchemyBase):
     __tablename__ = 'facts'
 
     id = sqlalchemy.Column(sqlalchemy.Integer, primary_key=True, autoincrement=True)
