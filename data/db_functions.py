@@ -13,12 +13,15 @@ def add_user(name, email, password):
     session.commit()
 
 
-def add_facts(user, title, content):
+def add_facts(user_id, title, content):
     facts = Facts.Facts()
     facts.title = title
     facts.content = content
-    facts.user_id = user.id
-    facts.user = user
+    facts.user_id = user_id
     session = db_session.create_session()
     session.add(facts)
     session.commit()
+
+
+def user_rating(user_id, rating):
+    

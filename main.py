@@ -64,9 +64,9 @@ def index():
 def create_fact():
     form = FactForm()
     if form.validate_on_submit():
-        add_facts(config.USER, form.title.data, form.content.data)
+        add_facts(config.USER_ID, form.title.data, form.content.data)
         return render_template('create_fact.html', message='ФАКТ успешно добавлен', form=form)
-    return render_template('create_fact.html', message='попробуйте ещё раз', form=form)
+    return render_template('create_fact.html', form=form)
 
 
 @app.route('/login', methods=['GET', 'POST'])
@@ -77,7 +77,8 @@ def login():
         user = session.query(User).filter(User.email == form.email.data).first()
         if user and user.check_password(form.password.data):
             login_user(user, remember=form.remember_me.data)
-            config.USER = user
+            config.USER_ID = user.id
+            session.commit()
             return redirect("/")
         return render_template('login.html', message="Неправильный логин или пароль", form=form)
     return render_template('login.html', title='Авторизация', form=form)
@@ -103,6 +104,7 @@ def register():
         send_email(form.email.data)
         config.NEEDED_CODE = get_code()
         config.USER_LIST = {'name': form.name.data, 'email': form.email.data, 'password': form.password.data}
+        session.commit()
         return render_template('submit_email.html', flag="wait")
     return render_template('register.html', title='Регистрация', form=form)
 
@@ -114,7 +116,6 @@ def submit_email(code):
         add_user(config.USER_LIST['name'],
                  config.USER_LIST['email'],
                  config.USER_LIST['password'])
-        config.USER_LIST = {}
         session.commit()
         return render_template('submit_email.html', flag="code")
     elif code is None:

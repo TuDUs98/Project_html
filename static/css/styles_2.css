@@ -43,18 +43,10 @@ a:visited{
 .sidebar_nav{
 	padding: 5% 1%;
 	margin-right: 1%; 
-	width: 14%;
+	width: 19%;
 	min-height: 1010px;
 	background-color: black;
 	float: left;
-	border-radius: 15px;
-}
-
-.sidebar{
-	width: 14%;
-	min-height: 1010px;
-	background-color: black;
-	float: right;
 	border-radius: 15px;
 }
 
@@ -65,7 +57,7 @@ a:visited{
 	background-color: black;
 	float: left;
 	min-height: 500px;
-	width: 70%;
+	width: 80%;
 	border-radius: 15px;
 }
 
@@ -77,7 +69,7 @@ a:visited{
 	background-color: black;
 	float: left;
 	min-height: 500px;
-	width: 70%;
+	width: 80%;
 	border-radius: 15px;
 }
 

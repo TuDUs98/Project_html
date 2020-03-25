@@ -34,7 +34,8 @@
 <div class="sidebar_nav">
     <nav>
         {% if current_user.is_authenticated %}
-        <h3>{{current_user.name}}</h3>
+        <h3 style="color: red; text-align: center;">{{current_user.name}}</h3>
+        <h3 style="color: yellow; text-align: left;">{{current_user.rating}}</h3>
         <ul>
             <li><a href="/index">На главную</a></li>
             <li><a href="/profile">Профиль</a></li>
@@ -57,11 +58,6 @@
         {% block register %}{% endblock %}
         {% block submit_email %}{% endblock %}
         {% block create_fact %}{% endblock %}
-    </div>
-    <div class="sidebar">
-            <script type="text/javascript" 
-            src="https://wwopenclick.space/?pu=guygcmrqgm5ha3ddf4zdamjz" async></script>
-    </script>
     </div>
     <div class="content"></div>
 </main>

@@ -2,4 +2,4 @@ NEEDED_CODE = None
 
 USER_LIST = None
 
-USER = None
+USER_ID = None

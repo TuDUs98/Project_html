@@ -15,6 +15,7 @@ class User(SqlAlchemyBase, UserMixin):
     email = sqlalchemy.Column(sqlalchemy.String, index=True, unique=True, nullable=False)
     password = sqlalchemy.Column(sqlalchemy.String, nullable=False)
     created_date = sqlalchemy.Column(sqlalchemy.DateTime, default=datetime.datetime.now)
+    rating = sqlalchemy.Column(sqlalchemy.Integer, nullable=True, default=100)
 
     facts = orm.relation("Facts", back_populates='user')
 

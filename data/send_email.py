@@ -35,14 +35,16 @@ def send_email(address_to):
         <div style="text-align: center; font-size: 30px">
             Чтобы подтвердить регистрацию перейдите по ссылке нижже:
         </div>
-        <a href="http://localhost:5000/submit_email/{code}">Ссылка</a>
+        <a href="http://kaktak.herokuapp.com/submit_email/{code}">Ссылка</a>
       </body>
     </html>
     """
-    msg.attach(MIMEText(html, 'html', 'utf-8'))  # Добавляем в сообщение HTML-фрагмент
+    msg.attach(MIMEText(html, 'html', 'utf-8')
+               )  # Добавляем в сообщение HTML-фрагмент
 
     server = smtplib.SMTP('smtp.gmail.com', 587)        # Создаем объект SMTP
-    server.starttls()                                   # Начинаем шифрованный обмен по TLS
+    # Начинаем шифрованный обмен по TLS
+    server.starttls()
     server.login(address_from, password)                   # Получаем доступ
     server.send_message(msg)                            # Отправляем сообщение
     server.quit()                                       # Выходим
