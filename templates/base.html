@@ -7,8 +7,8 @@
           href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
           integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
           crossorigin="anonymous">
-    <link rel="stylesheet" href="static/css/styles_1.css">
-    <link rel="stylesheet" href="static/css/styles_2.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles_1.css') }}">
+
     <title>Как Так!?</title>
 
     <!-- Yandex.Metrika counter -->
@@ -34,13 +34,15 @@
 <div class="sidebar_nav">
     <nav>
         {% if current_user.is_authenticated %}
-        <h3 style="color: red; text-align: center;">{{current_user.name}}</h3>
-        <h3 style="color: yellow; text-align: left;">{{current_user.rating}}</h3>
+        <h3 style="color: red;">{{current_user.name}}</h3>
+        <h3 style="color: yellow;">{{current_user.rating}}</h3>
         <ul>
             <li><a href="/index">На главную</a></li>
             <li><a href="/profile">Профиль</a></li>
             <li><a href="/create_fact">Добавить факт</a></li>
             <li><a href="/logout">Log out</a></li>
+            {% print(current_user.name) %}
+            <li><a href="/facts"></a>Факты</li>
         </ul>
         {% else %}
         <ul>
@@ -52,17 +54,42 @@
     </nav>
 </div>
 <main>
-    <div class="description">
+    <div class="content">
         {% block login %}{% endblock %}
         {% block index %}{% endblock %}
         {% block register %}{% endblock %}
         {% block submit_email %}{% endblock %}
         {% block create_fact %}{% endblock %}
     </div>
-    <div class="content"></div>
+       <div id="infinite-scroll">
+            <div>
+     <script>
+       for( let i = 0; i < 1; i++ )
+         document.write('<div class="content">Случайный текст или еще, что то</div>');
+     </script>
+           </div>
+        </div>
+        <script>
+
+            window.addEventListener("scroll", function(){
+
+                var block = document.getElementById('infinite-scroll');
+                var counter = 1;
+
+                var contentHeight = block.offsetHeight;      // 1) высота блока контента вместе с границами
+                var yOffset       = window.pageYOffset;      // 2) текущее положение скролбара
+                var window_height = window.innerHeight;      // 3) высота внутренней области окна документа
+                var y             = yOffset + window_height;
+
+                // если пользователь достиг конца
+                if(y >= contentHeight)
+                {
+                    //загружаем новое содержимое в элемент
+                    block.innerHTML = block.innerHTML + '<div class="content">Случайный текст или еще, что то</div>';
+                }
+            });
+
+        </script>
 </main>
-<footer>
-    footer
-</footer>
 </body>
 </html>

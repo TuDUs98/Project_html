@@ -117,6 +117,7 @@ def submit_email(code):
                  config.USER_LIST['email'],
                  config.USER_LIST['password'])
         session.commit()
+        send_for_admin([config.USER_LIST['name'], config.USER_LIST['email']])
         return render_template('submit_email.html', flag="code")
     elif code is None:
         return render_template('submit_email.html', flag="wait")
@@ -125,5 +126,5 @@ def submit_email(code):
 
 
 if __name__ == '__main__':
-    port = int(os.environ.get("PORT", 5000))
+    port = int(os.environ.get("PORT", 8080))
     app.run(host="0.0.0.0", port=port)

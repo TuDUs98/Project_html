@@ -21,7 +21,3 @@ def add_facts(user_id, title, content):
     session = db_session.create_session()
     session.add(facts)
     session.commit()
-
-
-def user_rating(user_id, rating):
-    
