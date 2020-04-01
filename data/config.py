@@ -8,4 +8,4 @@ USER = None
 
 address_from = "kaktak.group@gmail.com"
 
-password = "nazar40221987"  
+password = "nazar40221987"
