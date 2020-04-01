@@ -5,3 +5,5 @@ USER_LIST = None
 USER_ID = None
 
 USER = None
+
+NUM_OF_EL_OF_LIST_OF_FACTS = -1

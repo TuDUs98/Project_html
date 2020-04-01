@@ -61,7 +61,8 @@ def send_for_admin(user_list):
 
     msg = f"""\
     Зарегистрирован новый пользователь:
-    {user_list}
+    name:  {user_list[0]}
+    email: {user_list[1]}
     """
 
     server = smtplib.SMTP('smtp.gmail.com', 587)

@@ -16,3 +16,6 @@ class Facts(SqlAlchemyBase):
 
     user_id = sqlalchemy.Column(sqlalchemy.Integer, sqlalchemy.ForeignKey("users.id"))
     user = orm.relation('User')
+
+    def __repr__(self):
+        return f"<Fact> {self.id} {self.title} {self.content} {self.created_date} {self.user_id}"
