@@ -6,6 +6,8 @@ from flask_login import UserMixin
 
 from data.db_session import SqlAlchemyBase
 
+import hashlib
+
 
 class User(SqlAlchemyBase, UserMixin):
     __tablename__ = 'users'
@@ -23,4 +25,5 @@ class User(SqlAlchemyBase, UserMixin):
         return f"<User> {self.id} {self.name} {self.email} {self.password} {self.created_date}"
 
     def check_password(self, password):
-        return self.password == password
+        password_hash = hashlib.new('md5', self.password)
+        return password_hash.hexdigest() == password

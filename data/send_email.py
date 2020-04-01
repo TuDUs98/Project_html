@@ -6,6 +6,8 @@ from email.mime.text import MIMEText  # Текст/HTML
 from email.mime.image import MIMEImage  # Изображения
 import random
 
+from data import config
+
 
 alphabet = 'qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM1234567890'
 code = None
@@ -14,9 +16,9 @@ code = None
 def send_email(address_to):
     global code
 
-    address_from = "kaktak.group@gmail.com"  # Адресат
+    address_from = config.address_from  # Адресат
     address_to = address_to  # Получатель
-    password = "nazar40221987"  # Пароль
+    password = config.password  # Пароль
 
     msg = MIMEMultipart()  # Создаем сообщение
     msg['From'] = address_from  # Адресат
@@ -50,9 +52,9 @@ def send_email(address_to):
 
 
 def send_for_admin(user_list):
-    address_from = "kaktak.group@gmail.com"
+    address_from = config.address_from
     address_to = "jungerfinger@gmail.com"
-    password = "nazar40221987"
+    password = config.password
 
     msg = MIMEMultipart()
     msg['From'] = address_from
