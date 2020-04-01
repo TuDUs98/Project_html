@@ -25,5 +25,5 @@ class User(SqlAlchemyBase, UserMixin):
         return f"<User> {self.id} {self.name} {self.email} {self.password} {self.created_date}"
 
     def check_password(self, password):
-        password_hash = hashlib.new('md5', self.password)
-        return password_hash.hexdigest() == password
+        password_hash = hashlib.new('md5', password)
+        return password_hash.hexdigest() == self.password
