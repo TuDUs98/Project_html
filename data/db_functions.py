@@ -1,5 +1,6 @@
 from data import db_session
 from data import Users
+from data.Users import User
 from data import Facts
 
 
@@ -11,13 +12,19 @@ def add_user(name, email, password):
     session = db_session.create_session()
     session.add(user)
     session.commit()
+    session.close()
 
 
-def add_facts(user_id, title, content):
-    facts = Facts.Facts()
-    facts.title = title
-    facts.content = content
-    facts.user_id = user_id
+def add_facts(user_id, title, content, author='Anonym'):
     session = db_session.create_session()
-    session.add(facts)
+
+    fact = Facts.Facts()
+    fact.user_id = user_id
+    fact.title = title
+    fact.content = content
+    fact.author = author
+    fact.user = session.query(User).filter(User.id == user_id).first()
+    
+    session.add(fact)
     session.commit()
+    session.close()

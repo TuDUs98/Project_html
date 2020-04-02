@@ -13,9 +13,11 @@ class Facts(SqlAlchemyBase):
     title = sqlalchemy.Column(sqlalchemy.String, nullable=True)
     content = sqlalchemy.Column(sqlalchemy.String, nullable=True)
     created_date = sqlalchemy.Column(sqlalchemy.DateTime, default=datetime.datetime.now)
+    author = sqlalchemy.Column(sqlalchemy.String, default='Anonym')
 
     user_id = sqlalchemy.Column(sqlalchemy.Integer, sqlalchemy.ForeignKey("users.id"))
     user = orm.relation('User')
 
     def __repr__(self):
-        return f"<Fact> {self.id} {self.title} {self.content} {self.created_date} {self.user_id}"
+        return {'id': self.id, 'title': self.title, 'content': self.content,
+         'created_date': created_date, 'author': self.author, 'user_id': user_id, 'user': user}

@@ -37,17 +37,17 @@
         <h3 style="color: red;">{{current_user.name}}</h3>
         <h3 style="color: yellow;">{{current_user.rating}}</h3>
         <ul>
-            <li><a href="/index">На главную</a></li>
-            <li><a href="/profile">Профиль</a></li>
-            <li><a href="/create_fact">Добавить факт</a></li>
-            {% if current_user.name == 'admin' %}
-            <li><a href="/facts">Все факты</a></li>
+            <li><a href="/index">Home</a></li>
+            <li><a href="/profile">Profile</a></li>
+            <li><a href="/create_fact">Add fact</a></li>
+            {% if current_user.role == 'Admin' %}
+            <li><a href="/admin">Admin</a></li>
             {% endif %}
             <li><a href="/logout">Log out</a></li>
         </ul>
         {% else %}
         <ul>
-            <li><a href="/index">На главную</a></li>
+            <li><a href="/index">Home</a></li>
             <li><a href="/login">Sign in</a></li>
             <li><a href="/register">Sign up</a></li>
         </ul>
@@ -58,7 +58,6 @@
     var a = -1;
 </script>
 <main>
-    {% set list_of_facts = list_of_fact %}
     <div class="content">
         {% block login %}{% endblock %}
         {% block index %}{% endblock %}
@@ -67,41 +66,22 @@
         {% block create_fact %}{% endblock %}
     </div>
     {% if current_user.is_authenticated %}
-    <div id="infinite-scroll"></div>
-    <script>
 
-        window.addEventListener("scroll", function(){
+    {% for el in list_of_facts[::-1] %}
+    <div class="fact">
+        <div style="text-align: center;">{% print(el['title']) %}</div>
+        <div>{% print(el['content']) %}</div>
+        <div style="text-align: right;">{% print(el['author']) %}</div>
+        <div style="text-align: right;">{% print(el['created_date']) %}</div>
+    </div>
+    {% endfor %}
 
-            var block = document.getElementById('infinite-scroll');
-            var counter = 1;
-
-            // высота блока контента вместе с границами
-            var contentHeight = block.offsetHeight;      
-            // текущее положение скролбара
-            var yOffset = window.pageYOffset;   
-            // высота внутренней области окна документа
-            var window_height = window.innerHeight;      
-            var y = yOffset + window_height;
-
-            // если пользователь достиг конца
-            if(y >= contentHeight){
-                a = a + 1
-                var s = String(a)
-                block.innerHTML = block.innerHTML +
-                '{% set b =' + s + ' %}'
-                '<div class="fact">{{b}}</div>' +
-                '<div class="fact">{% print(list_of_facts[]) %}</div>' 
-                ;
-            }
-        });
-
-    </script>
-    <div class="end">На этом пока всё(</div>
+    <div class="end" style="line-height: 80px">На этом пока всё(</div>
     {% endif %}
 </main>
 {% if not current_user.is_authenticated %}
 <footer>
-    Что-бы листать ленту, зарегистрируйтесь!
+    Чтобы листать ленту, зарегистрируйтесь!
 </footer>     
 {% endif %}                                                              
 </body>

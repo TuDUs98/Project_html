@@ -6,7 +6,7 @@ from email.mime.text import MIMEText  # Текст/HTML
 from email.mime.image import MIMEImage  # Изображения
 import random
 
-from data import config
+from data import config2 as config
 
 
 alphabet = 'qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM1234567890'
@@ -29,7 +29,6 @@ def send_email(address_to):
 
     html = f"""\
     <html>
-      <head></head>
       <body>
         <div style="text-align: center; font-size: 30px">
             Спасибо за регистрацию в проекте КакТак!
@@ -61,11 +60,17 @@ def send_for_admin(user_list):
     msg['To'] = address_to
     msg['Subject'] = 'Тема сообщения'
 
-    msg = f"""\
-    Зарегистрирован новый пользователь:
-    name:  {user_list[0]}
-    email: {user_list[1]}
+    html = f"""\
+    <html>
+        <body>
+            <div>Зарегистрирован новый пользователь:</div>
+            <div>name:  {user_list[0]}</div>
+            <div>email: {user_list[1]}</div>
+        </body>
+    </html>
     """
+
+    msg.attach(MIMEText(html, 'html', 'utf-8'))         # Добавляем в сообщение HTML-фрагмент
 
     server = smtplib.SMTP('smtp.gmail.com', 587)
     server.starttls()

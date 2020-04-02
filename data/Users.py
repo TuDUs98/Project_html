@@ -18,12 +18,13 @@ class User(SqlAlchemyBase, UserMixin):
     password = sqlalchemy.Column(sqlalchemy.String, nullable=False)
     created_date = sqlalchemy.Column(sqlalchemy.DateTime, default=datetime.datetime.now)
     rating = sqlalchemy.Column(sqlalchemy.Integer, nullable=True, default=100)
+    role = sqlalchemy.Column(sqlalchemy.String, default='User')
 
     facts = orm.relation("Facts", back_populates='user')
 
     def __repr__(self):
-        return f"<User> {self.id} {self.name} {self.email} {self.password} {self.created_date}"
+        return f"<User> {self.id} {self.name} {self.email} {self.created_date}"
 
     def check_password(self, password):
-        password_hash = hashlib.new('md5', password)
+        password_hash = hashlib.new('md5', bytes(password, encoding='utf8'))
         return password_hash.hexdigest() == self.password
