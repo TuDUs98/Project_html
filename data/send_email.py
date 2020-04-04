@@ -6,7 +6,7 @@ from email.mime.text import MIMEText  # Текст/HTML
 from email.mime.image import MIMEImage  # Изображения
 import random
 
-from data import config2 as config
+from data import config3 as config
 
 
 alphabet = 'qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM1234567890'
@@ -36,7 +36,7 @@ def send_email(address_to):
         <div style="text-align: center; font-size: 30px">
             Чтобы подтвердить регистрацию перейдите по ссылке нижже:
         </div>
-        <a href="http://kaktak.herokuapp.com/submit_email/{code}">Ссылка</a>
+        <a href="http://kaktakgroup.pythonanywhere.com/submit_email/{code}">Ссылка</a>
       </body>
     </html>
     """
