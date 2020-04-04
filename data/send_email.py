@@ -36,7 +36,7 @@ def send_email(address_to):
         <div style="text-align: center; font-size: 30px">
             Чтобы подтвердить регистрацию перейдите по ссылке нижже:
         </div>
-        <a href="http://localhost:5000/submit_email/{code}">Ссылка</a>
+        <a href="http://kaktak.herokuapp.com/submit_email/{code}">Ссылка</a>
       </body>
     </html>
     """
