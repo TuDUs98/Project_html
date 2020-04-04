@@ -21,7 +21,7 @@ from wtforms import StringField, PasswordField, BooleanField, SubmitField, TextA
 from wtforms.validators import DataRequired, Email
 from flask import redirect
 
-from data import config2 as config
+from data import config3 as config
 import os
 import hashlib
 
