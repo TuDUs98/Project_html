@@ -3,9 +3,13 @@ from data.db_functions import *
 from data.Users import User
 from data.Facts import Facts
 
+from flask_admin import Admin, AdminIndexView
+from flask_admin.contrib.sqla import ModelView
+
 from flask_login.login_manager import LoginManager
 from flask_login import login_user
 from flask_login import logout_user
+from flask_login import current_user
 from flask_login import login_required
 
 from data.send_email import *
@@ -13,16 +17,13 @@ from data.send_email import *
 from flask import Flask
 from flask import render_template
 from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField, BooleanField, SubmitField
-from wtforms.validators import DataRequired
+from wtforms import StringField, PasswordField, BooleanField, SubmitField, TextAreaField
+from wtforms.validators import DataRequired, Email
 from flask import redirect
 
 from data import config2 as config
 import os
 import hashlib
-from flask_admin import Admin, AdminIndexView
-from flask_admin.contrib.sqla import ModelView
-from flask_login import current_user
 
 
 class MyModelView(ModelView):
@@ -74,14 +75,14 @@ class LoginForm(FlaskForm):
 
 class RegisterForm(FlaskForm):
     name = StringField('Имя', validators=[DataRequired()])
-    email = StringField('Почта', validators=[DataRequired()])
+    email = StringField('Почта', validators=[Email()])
     password = PasswordField('Пароль', validators=[DataRequired()])
     submit = SubmitField('Зарегистрироваться')
 
 
 class FactForm(FlaskForm):
     title = StringField('Название', validators=[DataRequired()])
-    content = StringField('Контент', validators=[DataRequired()])
+    content = TextAreaField('Контент', validators=[DataRequired()])
     submit = SubmitField('Создать')
     anonym = BooleanField('Сделать ФАКТ анонимным')
 
@@ -91,6 +92,26 @@ class FactForm(FlaskForm):
 def index():
     list_of_facts = get_list_of_facts()
     return render_template("index.html", list_of_facts=get_list_of_facts())
+
+
+@app.route('/true/<id>', methods=['GET', 'POST'])
+def true(id):
+    session = db_session.create_session()
+    fact = session.query(Facts).filter(Facts.id == id).first()
+    fact.votes_true += 1
+    session.commit()
+    session.close()
+    return render_template('index.html', list_of_facts=get_list_of_facts())
+
+
+@app.route('/false/<id>', methods=['GET', 'POST'])
+def false(id):
+    session = db_session.create_session()
+    fact = session.query(Facts).filter(Facts.id == id).first()
+    fact.votes_false += 1
+    session.commit()
+    session.close()
+    return render_template('index.html', list_of_facts=get_list_of_facts())
 
 
 @app.route('/facts')

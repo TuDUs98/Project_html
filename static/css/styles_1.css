@@ -26,7 +26,7 @@ footer{
   font-size: 20px;
   margin-bottom: 10px;
 }
- 
+
 ul{
   padding: 0 0;
   list-style-type: none;
@@ -41,6 +41,50 @@ a:link{
 
 a:visited{
   color: white;
+}
+
+a.buttonT{
+  display: inline-block;
+  color: white;
+  text-decoration: none;
+  user-select: none;
+  padding: .5em 2em;
+  outline: none;
+  border: 2px solid;
+  border-radius: 1px;
+  transition: 0.2s;
+  float: left;
+  width: 45%;
+} 
+
+a.buttonT:hover{
+  background: green; 
+}
+
+a.buttonT:active{
+  background: white; 
+}
+
+a.buttonF{
+  display: inline-block;
+  color: white;
+  text-decoration: none;
+  user-select: none;
+  padding: .5em 2em;
+  outline: none;
+  border: 2px solid;
+  border-radius: 1px;
+  transition: 0.2s;
+  float: right;
+  width: 45%;
+} 
+
+a.buttonF:hover{
+  background: red; 
+}
+
+a.buttonF:active{
+  background: white; 
 }
 
 
@@ -89,13 +133,14 @@ h1{
 }
 
 .fact{
-  padding: 5% 5%;
+  padding: 2.5% 5%;
   margin-bottom: 10px; 
   background-color: black;
   float: right;
   min-height: 250px;
   width: 100%;
   border-radius: 15px;
+  line-height: 2;
 }
 
 .error{

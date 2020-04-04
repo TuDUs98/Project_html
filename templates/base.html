@@ -35,7 +35,7 @@
     <nav>
         {% if current_user.is_authenticated %}
         <h3 style="color: red;">{{current_user.name}}</h3>
-        <h3 style="color: yellow;">{{current_user.rating}}</h3>
+        <h3 style="color: yellow;">{{current_user.rating}}Т</h3>
         <ul>
             <li><a href="/index">Home</a></li>
             <li><a href="/profile">Profile</a></li>
@@ -69,11 +69,23 @@
 
     {% for el in list_of_facts[::-1] %}
     <div class="fact">
-        <div style="text-align: center;">{% print(el['title']) %}</div>
-        <div>{% print(el['content']) %}</div>
-        <div style="text-align: right;">{% print(el['author']) %}</div>
-        <div style="text-align: right;">{% print(el['created_date']) %}</div>
+        <div style="text-align: center; font-size: 30px;">
+            {% print(el['title']) %}
+        </div>
+        <div style="font-size: 20px;">
+            {% print(el['content']) %}
+        </div>
+        <div style="text-align: right; font-style: italic;">
+            {% print(el['author']) %}
+        </div>
+        <div style="text-align: right;">
+            {% print(el['created_date']) %}
+        </div>
+        {% set id = el['id'] %}
+        <a href='/true/{{id}}' class="buttonT">Верю</a>
+        <a href='/false/{{id}}' class="buttonF">Не Верю</a>
     </div>
+
     {% endfor %}
 
     <div class="end" style="line-height: 80px">На этом пока всё(</div>
