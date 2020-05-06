@@ -72,6 +72,7 @@ def send_for_admin(user_list):
     msg.attach(MIMEText(html, 'html', 'utf-8'))
 
     server = smtplib.SMTP('smtp.mail.ru', 25)
+
     server.starttls()
     server.login(address_from, password)                
     server.send_message(msg)                            
