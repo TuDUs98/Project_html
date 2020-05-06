@@ -59,16 +59,25 @@
 </script>
 <main>
     <div class="content">
+        {% if url_name %}
+        <a href='#{{url_name}}' class="buttonV">
+            Вы только что проголосовали, вернуться к тому ФАКТу?
+        </a>
+        {% endif %}
         {% block login %}{% endblock %}
         {% block index %}{% endblock %}
+        {% block profile %}{% endblock %}
         {% block register %}{% endblock %}
         {% block submit_email %}{% endblock %}
         {% block create_fact %}{% endblock %}
     </div>
     {% if current_user.is_authenticated %}
+    
 
     {% for el in list_of_facts[::-1] %}
+    {% set id = el['id'] %}
     <div class="fact">
+        <p><a name="{{id}}"></a></p>
         <div style="text-align: center; font-size: 30px;">
             {% print(el['title']) %}
         </div>
@@ -81,20 +90,31 @@
         <div style="text-align: right;">
             {% print(el['created_date']) %}
         </div>
-        {% set id = el['id'] %}
-        <a href='/true/{{id}}' class="buttonT">Верю</a>
-        <a href='/false/{{id}}' class="buttonF">Не Верю</a>
+        {% if el['is_checked'] %}
+        {% if el.checked_value == 'true' %}
+        <div style="text-align: right;">
+            Проверено - Верно 
+        </div>
+        {% elif el.checked_value == 'false' %}
+        <div style="text-align: right;">
+            Проверено - Верно 
+        </div>
+        {% endif %}
+        {% endif %}
+        <a href='/true/{{id}}' class="buttonT">Верю - {{el.votes_true}}</a>
+        <a href='/false/{{id}}' class="buttonF">Не Верю - {{el.votes_false}}</a>
     </div>
 
     {% endfor %}
 
     <div class="end" style="line-height: 80px">На этом пока всё(</div>
     {% endif %}
-</main>
-{% if not current_user.is_authenticated %}
-<footer>
-    Чтобы листать ленту, зарегистрируйтесь!
-</footer>     
-{% endif %}                                                              
+    
+    {% if not current_user.is_authenticated %}
+    <div class='footer'>
+        Чтобы листать ленту, зарегистрируйтесь!
+    </div>    
+    {% endif %}   
+</main>                                                           
 </body>
 </html>

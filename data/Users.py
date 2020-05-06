@@ -19,8 +19,10 @@ class User(SqlAlchemyBase, UserMixin):
     created_date = sqlalchemy.Column(sqlalchemy.DateTime, default=datetime.datetime.now)
     rating = sqlalchemy.Column(sqlalchemy.Integer, nullable=True, default=100)
     role = sqlalchemy.Column(sqlalchemy.String, default='User')
+    # count_of_checked_votes = sqlalchemy.Column(sqlalchemy.Integer, default=0)
 
     facts = orm.relation("Facts", back_populates='user')
+    votes = orm.relation("Votes", back_populates='user')
 
     def __repr__(self):
         return f"<User> {self.id} {self.name} {self.email} {self.created_date}"

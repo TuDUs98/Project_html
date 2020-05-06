@@ -36,7 +36,7 @@ def send_email(address_to):
         <div style="text-align: center; font-size: 30px">
             Чтобы подтвердить регистрацию перейдите по ссылке нижже:
         </div>
-        <a href="http://kaktakgroup.pythonanywhere.com/submit_email/{code}">Ссылка</a>
+        <a href="http://localhost:8080/submit_email/{code}" style="font-size: 20px;">Ссылка</a>
       </body>
     </html>
     """
@@ -52,30 +52,31 @@ def send_email(address_to):
 
 def send_for_admin(user_list):
     address_from = config.address_from
-    address_to = "jungerfinger@gmail.com"
+    address_to = config.admin_adress
     password = config.password
 
     msg = MIMEMultipart()
     msg['From'] = address_from
     msg['To'] = address_to
-    msg['Subject'] = 'Тема сообщения'
+    msg['Subject'] = 'Новый зарегистрированный пользователь'
 
     html = f"""\
     <html>
-        <body>
-            <div>Зарегистрирован новый пользователь:</div>
-            <div>name:  {user_list[0]}</div>
-            <div>email: {user_list[1]}</div>
-        </body>
+      <body>
+        <div>Зарегистрирован новый пользователь:</div>
+        <div>Имя: {user_list[0]}</div>
+        <div>Почта: {user_list[1]}</div>
+      </body>
     </html>
     """
-
-    msg.attach(MIMEText(html, 'html', 'utf-8'))         # Добавляем в сообщение HTML-фрагмент
+    msg.attach(MIMEText(html, 'html', 'utf-8'))
 
     server = smtplib.SMTP('smtp.gmail.com', 587)
+                                                        
     server.starttls()
-    server.login(address_from, password)
-    server.send_message(msg)
+    server.login(address_from, password)                
+    server.send_message(msg)                            
+    server.quit()                                      
 
 
 def get_code():

@@ -14,6 +14,10 @@ class Facts(SqlAlchemyBase):
     content = sqlalchemy.Column(sqlalchemy.String, nullable=True)
     created_date = sqlalchemy.Column(sqlalchemy.String, default=datetime.datetime.today().strftime('%H:%m %d/%m/%Y'))
     author = sqlalchemy.Column(sqlalchemy.String, default='Anonym')
+    is_checked = sqlalchemy.Column(sqlalchemy.Boolean, default=False)
+    checked_value = sqlalchemy.Column(sqlalchemy.String, default=None, nullable=True)
+
+    votes = orm.relation("Votes", back_populates='fact')
     votes_true = sqlalchemy.Column(sqlalchemy.Integer, default=0)
     votes_false = sqlalchemy.Column(sqlalchemy.Integer, default=0)
 
@@ -21,5 +25,5 @@ class Facts(SqlAlchemyBase):
     user = orm.relation('User')
 
     def __repr__(self):
-        return {'id': self.id, 'title': self.title, 'content': self.content,
-         'created_date': created_date, 'author': self.author, 'user_id': user_id, 'user': user}
+        return f"<Fact> {self.id} {self.title} {self.content} {self.created_date} {self.author} {self.user_id} " \
+               f"{self.user}"

@@ -2,7 +2,17 @@
 {% extends "base.html" %}
 
 {% block index %}
-	<div style="font-size: 20px;">
-		Это описание сайта, про то, какой он хороший, удобный, интересный. И какая-нибудь мотивационная речь.
-	</div>
+    {% if not current_user.is_authenticated %}
+	<div style="font-size: 20px;">"Вы знаете? Вы знаете?..." - это строки стихотворения Данила Хармса.</div>
+	<div style="font-size: 20px;">Кто это? И о чём вы должны знать? Всё САМОЕ интересное, всё САМОЕ необычное - только на этом сайте!</div>
+	<div style="font-size: 20px;">Читайте, узнавайте, удивляйтесь, голосуйтесь!</div>
+	<div style="font-size: 20px;">"А всё-таки лучше знать, чем не знать, даже если речь идёт о сущих пустяках."</div>
+	<div style="font-size: 20px;">(М.Фрай "Ворона на мосту")</div>
+	{% else %}
+	<div style="font-size: 20px;">Вот некоторая полезная информация:</div>
+	</br>
+	<div style="font-size: 20px;">100Т - это 100 Таков(рейтинга)</div>
+	<div style="font-size: 20px;">Голосовать и менять голос у проверенного факта нельзя!</div>
+	<div style="font-size: 20px;">Почта для вопросов и предложений: jungerfinger@gmail.com</div>
+	{% endif %}
 {% endblock %}
