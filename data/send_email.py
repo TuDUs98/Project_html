@@ -36,13 +36,13 @@ def send_email(address_to):
         <div style="text-align: center; font-size: 30px">
             Чтобы подтвердить регистрацию перейдите по ссылке нижже:
         </div>
-        <a href="http://localhost:8080/submit_email/{code}" style="font-size: 20px;">Ссылка</a>
+        <a href="http://kaktakgroup.pythonanywhere.com/submit_email/{code}" style="font-size: 20px;">Ссылка</a>
       </body>
     </html>
     """
     msg.attach(MIMEText(html, 'html', 'utf-8'))         # Добавляем в сообщение HTML-фрагмент
 
-    server = smtplib.SMTP('smtp.gmail.com', 587)        # Создаем объект SMTP
+    server = smtplib.SMTP('smtp.mail.ru', 25)     # Создаем объект SMTP
                                                         # Начинаем шифрованный обмен по TLS
     server.starttls()
     server.login(address_from, password)                # Получаем доступ
@@ -71,8 +71,7 @@ def send_for_admin(user_list):
     """
     msg.attach(MIMEText(html, 'html', 'utf-8'))
 
-    server = smtplib.SMTP('smtp.gmail.com', 587)
-                                                        
+    server = smtplib.SMTP('smtp.mail.ru', 25)
     server.starttls()
     server.login(address_from, password)                
     server.send_message(msg)                            
